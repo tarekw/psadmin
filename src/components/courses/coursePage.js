@@ -10,7 +10,7 @@ var CourseList = require('./courseList');
 var AuthorPage = React.createClass({
 	getInitialState: function () {
 		return {
-			authors: CourseStore.getAllAuthors()
+			courses: CourseStore.getAllCourses()
 		};
 	},
 	componentWillMount: function() {
@@ -20,15 +20,15 @@ var AuthorPage = React.createClass({
 		CourseStore.removeChangeListener(this._onChange);
 	},
 	_onChange: function() {
-		this.setState({ authors: CourseStore.getAllAuthors() });
+		this.setState({ courses: CourseStore.getAllCourses() });
 	},
 	render: function () {
 
 		return (
 			<div>
-				<h1>Authors</h1>
-				<Link to="addAuthor" className="btn btn-default">Add Author</Link>
-				<CourseList authors={this.state.authors} />
+				<h1>Courses</h1>
+				<Link to="addCourse" className="btn btn-default">Add Course</Link>
+				<CourseList courses={this.state.courses} />
 			</div>
 		);
 	}

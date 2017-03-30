@@ -2,6 +2,7 @@
 
 var Dispatcher = require('../dispatcher/appDispatcher');
 var AuthorApi = require('../api/authorApi');
+var CourseApi = require('../api/courseApi');
 var ActionType = require('../constants/actionTypes');
 
 var InitializeActions = {
@@ -9,7 +10,8 @@ var InitializeActions = {
 		Dispatcher.dispatch({
 			actionType: ActionType.INITIALIZE,
 			initialData: {
-				authors: AuthorApi.getAllAuthors()		// will normally be async
+				authors: AuthorApi.getAllAuthors(),		// will normally be async
+				courses: CourseApi.getAllCourses()
 			}
 		});
 	}

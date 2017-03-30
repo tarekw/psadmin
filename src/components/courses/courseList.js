@@ -3,25 +3,27 @@
 var React = require('react');
 var Router = require('react-router');
 var Link = Router.Link;
-var AuthorActions = require('../../actions/authorActions');
+var CourseActions = require('../../actions/courseActions');
 var toastr = require('toastr');
 
-var AuthorList = React.createClass({
+var CourseList = React.createClass({
 	propTypes: {
-		authors: React.PropTypes.array.isRequired
+		courses: React.PropTypes.array.isRequired
 	},
 	deleteAuthor: function(id, event) {
 		event.preventDefault();
-		AuthorActions.deleteAuthor(id);
+		CourseActions.deleteAuthor(id);
 		toastr.success('Author Deleted');
 	},
 	render: function () {
-		var createAuthorRow = function (author) {
+		var createCourseRow = function (course) {
 			return (
-				<tr key={author.id}>
-					<td><a href="#" onClick={this.deleteAuthor.bind(this, author.id)}>Delete</a></td>
-					<td><Link to="manageAuthor" params={{id: author.id}}>{author.id}</Link></td>
-					<td>{author.firstName} {author.lastName}</td>
+				<tr key={course.id}>
+					<td><a href="#" onClick={this.deleteAuthor.bind(this, course.id)}>Delete</a></td>
+					<td><Link to="manageCourse" params={{id: course.id}}>{course.title}</Link></td>
+					<td>{course.author.name}</td>
+					<td>{course.category}</td>
+					<td>{course.length}</td>
 				</tr>
 			);
 		};
@@ -30,11 +32,13 @@ var AuthorList = React.createClass({
 				<table className="table">
 					<thead>
 						<th></th>
-						<th>ID</th>
-						<th>Name</th>
+						<th>Title</th>
+						<th>Author</th>
+						<th>Category</th>
+						<th>Length</th>
 					</thead>
 					<tbody>
-						{this.props.authors.map(createAuthorRow, this)}
+						{this.props.courses.map(createCourseRow, this)}
 					</tbody>
 				</table>
 			</div>
@@ -42,4 +46,4 @@ var AuthorList = React.createClass({
 	}
 });
 
-module.exports = AuthorList;
+module.exports = CourseList;
