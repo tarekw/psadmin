@@ -1,35 +1,35 @@
 'use strict';
 
 var Dispatcher = require('../dispatcher/appDispatcher');
-var AuthorApi = require('../api/authorApi');
+var CourseApi = require('../api/courseApi');
 var ActionType = require('../constants/actionTypes');
 
-var AuthorActions = {
-	createAuthor: function (author) {
-		var newAuthor = AuthorApi.saveAuthor(author);
+var CourseActions = {
+	createCourse: function (course) {
+		var newCourse = CourseApi.saveCourse(course);
 
-		// Hey dispatcher, go tell all the stores that an author was just created
+		// Hey dispatcher, go tell all the stores that a course was just created
 		Dispatcher.dispatch({
-			actionType: ActionType.CREATE_AUTHOR,
-			author: newAuthor
+			actionType: ActionType.CREATE_COURSE,
+			course: newCourse
 		});
 	},
-	updateAuthor: function (author) {
-		var updatedAuthor = AuthorApi.saveAuthor(author);
+	updateCourse: function (course) {
+		var updatedCourse = CourseApi.saveCourse(course);
 
 		Dispatcher.dispatch({
-			actionType: ActionType.UPDATE_AUTHOR,
-			author: updatedAuthor
+			actionType: ActionType.UPDATE_COURSE,
+			course: updatedCourse
 		});
 	},
-	deleteAuthor: function (id) {
-		AuthorApi.deleteAuthor(id);
+	deleteCourse: function (id) {
+		CourseApi.deleteCourse(id);
 
 		Dispatcher.dispatch({
-			actionType: ActionType.DELETE_AUTHOR,
+			actionType: ActionType.DELETE_COURSE,
 			id: id
 		});
 	}
 };
 
-module.exports = AuthorActions;
+module.exports = CourseActions;

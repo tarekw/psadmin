@@ -37,19 +37,19 @@ Dispatcher.register(function(action) {
 			_courses = action.initialData.courses;
 			CourseStore.emitChange();
 			break;
-		case ActionTypes.CREATE_AUTHOR:
-			_courses.push(action.author);
+		case ActionTypes.CREATE_COURSE:
+			_courses.push(action.course);
 			CourseStore.emitChange();
 			break;
-		case ActionTypes.UPDATE_AUTHOR:
-			var existingAuthor = _.find(_courses, {id: action.author.id});
-			var existingAuthorIndex = _.indexOf(_courses, existingAuthor);
-			_courses.splice(existingAuthorIndex, 1, action.author);
+		case ActionTypes.UPDATE_COURSE:
+			var existingCourse = _.find(_courses, {id: action.course.id});
+			var existingCourseIndex = _.indexOf(_courses, existingCourse);
+			_courses.splice(existingCourseIndex, 1, action.course);
 			CourseStore.emitChange();
 			break;
-		case ActionTypes.DELETE_AUTHOR:
-			_.remove(_courses, function(author) {
-				return action.id === author.id;
+		case ActionTypes.DELETE_COURSE:
+			_.remove(_courses, function(course) {
+				return action.id === course.id;
 			});
 			CourseStore.emitChange();
 			break;

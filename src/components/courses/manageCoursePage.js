@@ -7,7 +7,7 @@ var CourseActions = require('../../actions/courseActions');
 var CourseStore = require('../../stores/courseStore');
 var toastr = require('toastr');
 
-var ManageAuthorPage = React.createClass({
+var ManageCoursePage = React.createClass({
 	mixins: [
 		Router.Navigation
 	],
@@ -20,67 +20,67 @@ var ManageAuthorPage = React.createClass({
 	},
 	getInitialState: function () {
 		return {
-			author: { id: '', firstName: '', lastName: '' },
+			course: { id: '', title: '', author: { id: "tarek-wahab", name: "Tarek Wahab" }, length: '', category: '' },
 			errors: {},
 			dirty: false
 		};
 	},
 	componentWillMount: function () {
-		var authorId = this.props.params.id;	// from the path '/author:id'
+		var courseId = this.props.params.id;	// from the path '/course:id'
 
-		if (authorId) {
-			this.setState({ author: CourseStore.getAuthorById(authorId) });
+		if (courseId) {
+			this.setState({ course: CourseStore.getCourseById(courseId) });
 		}
 	},
-	setAuthorState: function (event) {
+	setCourseState: function (event) {
 		this.setState({ dirty: true });
 		var field = event.target.name;
 		var value = event.target.value;
-		this.state.author[field] = value;
-		return this.setState({ author: this.state.author });
+		this.state.course[field] = value;
+		return this.setState({ course: this.state.course });
 	},
 	courseFormIsValid: function () {
 		var formIsValid = true;
 		this.state.errors = {};		// clear any previous errors
 
-		if (this.state.author.firstName.length < 3) {
-			this.state.errors.firstName = 'First name must be at least 3 characters.';
+		if (this.state.course.title.length < 3) {
+			this.state.errors.title = 'Title must be at least 3 characters.';
 			formIsValid = false;
 		}
 
-		if (this.state.author.lastName.length < 3) {
-			this.state.errors.lastName = 'Last name must be at least 3 characters.';
+		if (this.state.course.category.length < 3) {
+			this.state.errors.category = 'Category must be at least 3 characters.';
 			formIsValid = false;
 		}
 
 		this.setState({ errors: this.state.errors });
 		return formIsValid;
 	},
-	saveAuthor: function (event) {
+	saveCourse: function (event) {
 		event.preventDefault();
 
 		if (!this.courseFormIsValid()) {
 			return;
 		}
 
-		if (this.state.author.id) {
-			CourseActions.updateAuthor(this.state.author);
+		if (this.state.course.id) {
+			CourseActions.updateCourse(this.state.course);
 		} else {
-			CourseActions.createAuthor(this.state.author);
+			CourseActions.createCourse(this.state.course);
 		}
 		this.setState({ dirty: false });
-		toastr.success('Author saved.');
-		this.transitionTo('authors');
+		toastr.success('Course saved.');
+		this.transitionTo('courses');
 	},
 	render: function () {
 		return (
 			<CourseForm
-				author={this.state.author}
-				onChange={this.setAuthorState}
-				onSave={this.saveAuthor}
+				course={this.state.course}
+				onChange={this.setCourseState}
+				onSave={this.saveCourse}
 				errors={this.state.errors} />
 		);
 	}
 });
 
-module.exports = ManageAuthorPage;
+module.exports = ManageCoursePage;

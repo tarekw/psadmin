@@ -7,7 +7,7 @@ var CourseActions = require('../../actions/courseActions');
 var CourseStore = require('../../stores/courseStore');
 var CourseList = require('./courseList');
 
-var AuthorPage = React.createClass({
+var CoursePage = React.createClass({
 	getInitialState: function () {
 		return {
 			courses: CourseStore.getAllCourses()
@@ -34,4 +34,4 @@ var AuthorPage = React.createClass({
 	}
 });
 
-module.exports = AuthorPage;
+module.exports = CoursePage;

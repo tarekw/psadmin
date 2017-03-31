@@ -5,7 +5,7 @@ var Input = require('../common/textInput');
 
 var AuthorForm = React.createClass({
 	propTypes: {
-		author: React.PropTypes.object.isRequired,
+		course: React.PropTypes.object.isRequired,
 		onSave: React.PropTypes.func.isRequired,
 		onChange: React.PropTypes.func.isRequired,
 		errors: React.PropTypes.object
@@ -13,20 +13,27 @@ var AuthorForm = React.createClass({
 	render: function () {
 		return (
 			<form>
-				<h1>Manage Author</h1>
+				<h1>Edit Course</h1>
 				<Input
-					name='firstName'
-					label='First Name'
-					value={this.props.author.firstName}
+					name='title'
+					label='Title'
+					value={this.props.course.title}
 					onChange={this.props.onChange}
-					error={this.props.errors.firstName} />
+					error={this.props.errors.title} />
 
 				<Input
-					name='lastName'
-					label='Last Name'
-					value={this.props.author.lastName}
+					name='category'
+					label='Category'
+					value={this.props.course.category}
 					onChange={this.props.onChange}
-					error={this.props.errors.lastName} />
+					error={this.props.errors.category} />
+
+				<Input
+					name='length'
+					label='Length'
+					value={this.props.course.length}
+					onChange={this.props.onChange}
+					error={this.props.errors.length} />
 
 				<input type="submit" value="Save" className="btn btn-default" onClick={this.props.onSave} />
 			</form>
