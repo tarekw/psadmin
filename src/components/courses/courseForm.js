@@ -2,9 +2,11 @@
 
 var React = require('react');
 var Input = require('../common/textInput');
+var SelectionInput = require('../common/selectionInput');
 
 var AuthorForm = React.createClass({
 	propTypes: {
+		authors: React.PropTypes.array.isRequired,
 		course: React.PropTypes.object.isRequired,
 		onSave: React.PropTypes.func.isRequired,
 		onChange: React.PropTypes.func.isRequired,
@@ -20,6 +22,15 @@ var AuthorForm = React.createClass({
 					value={this.props.course.title}
 					onChange={this.props.onChange}
 					error={this.props.errors.title} />
+
+				<SelectionInput
+					name='author'
+					label='Author'
+					authors={this.props.authors}
+					authorId={this.props.course.author.id}
+					value=''
+					onChange={this.props.onChange}
+					error={this.props.errors.author} />
 
 				<Input
 					name='category'

@@ -5,6 +5,7 @@ var Router = require('react-router');
 var CourseForm = require('./courseForm');
 var CourseActions = require('../../actions/courseActions');
 var CourseStore = require('../../stores/courseStore');
+var AuthorStore = require('../../stores/authorStore');
 var toastr = require('toastr');
 
 var ManageCoursePage = React.createClass({
@@ -20,23 +21,34 @@ var ManageCoursePage = React.createClass({
 	},
 	getInitialState: function () {
 		return {
-			course: { id: '', title: '', author: { id: "tarek-wahab", name: "Tarek Wahab" }, length: '', category: '' },
+			authors: [],
+			course: { id: '', title: '', author: { id: '', name: '' }, length: '', category: '' },
 			errors: {},
 			dirty: false
 		};
 	},
 	componentWillMount: function () {
+		this.setState({ authors: AuthorStore.getAllAuthors() });
+		
 		var courseId = this.props.params.id;	// from the path '/course:id'
-
 		if (courseId) {
 			this.setState({ course: CourseStore.getCourseById(courseId) });
 		}
 	},
 	setCourseState: function (event) {
 		this.setState({ dirty: true });
+
 		var field = event.target.name;
 		var value = event.target.value;
-		this.state.course[field] = value;
+
+		if(event.target.name === 'author') {
+			var author = AuthorStore.getAuthorById(value);
+			this.state.course[field].id = value;
+			this.state.course[field].name = author.firstName + ' ' + author.lastName;
+		} else {
+			this.state.course[field] = value;			
+		}
+
 		return this.setState({ course: this.state.course });
 	},
 	courseFormIsValid: function () {
@@ -75,6 +87,7 @@ var ManageCoursePage = React.createClass({
 	render: function () {
 		return (
 			<CourseForm
+				authors={this.state.authors}
 				course={this.state.course}
 				onChange={this.setCourseState}
 				onSave={this.saveCourse}
