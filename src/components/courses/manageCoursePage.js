@@ -28,11 +28,15 @@ var ManageCoursePage = React.createClass({
 		};
 	},
 	componentWillMount: function () {
-		this.setState({ authors: AuthorStore.getAllAuthors() });
-		
 		var courseId = this.props.params.id;	// from the path '/course:id'
+		var allAuthors = AuthorStore.getAllAuthors();
 		if (courseId) {
-			this.setState({ course: CourseStore.getCourseById(courseId) });
+			this.setState({ authors: allAuthors, course: CourseStore.getCourseById(courseId) });
+		} else {
+			var course = this.state.course;
+			course.author.id = allAuthors[0].id;
+			course.author.name = allAuthors[0].firstName + ' ' + allAuthors[0].lastName;
+			this.setState({ authors: allAuthors, course: course });
 		}
 	},
 	setCourseState: function (event) {

@@ -27,10 +27,8 @@ var AuthorForm = React.createClass({
 					name='author'
 					label='Author'
 					authors={this.props.authors}
-					authorId={this.props.course.author.id}
-					value=''
-					onChange={this.props.onChange}
-					error={this.props.errors.author} />
+					value={this.props.course.author.id}
+					onChange={this.props.onChange} />
 
 				<Input
 					name='category'

@@ -4,20 +4,13 @@ var React = require('react');
 
 var SelectionInput = React.createClass({
 	propTypes: {
-		// name: React.PropTypes.string.isRequired,
-		// label: React.PropTypes.string.isRequired,
-		// onChange: React.PropTypes.func.isRequired,
-		// placeholder: React.PropTypes.string,
-		// value: React.PropTypes.string,
-		// error: React.PropTypes.string
+		name: React.PropTypes.string.isRequired,
+		label: React.PropTypes.string.isRequired,
+		onChange: React.PropTypes.func.isRequired,
+		value: React.PropTypes.string.isRequired
 	},
 
 	render: function () {
-		var wrapperClass = 'form-group';
-		if (this.props.error && this.props.error.length > 0) {
-			wrapperClass += ' ' + 'has-error';
-		}
-
 		var createOption = function(author) {
 			return (
 				<option key={author.id} value={author.id}>{author.firstName} {author.lastName}</option>
@@ -25,17 +18,16 @@ var SelectionInput = React.createClass({
 		};
 
 		return (
-			<div className={wrapperClass}>
+			<div className='form-group'>
 				<label htmlFor={this.props.name}>{this.props.label}</label>
 				<select
 					ref={this.props.name}
 					name={this.props.name}
-					value={this.props.authorId}
+					value={this.props.value}
 					onChange={this.props.onChange}
 					className="form-control">
 					{this.props.authors.map(createOption, this)}
 				</select>
-				<div className="input">{this.props.error}</div>
 			</div>
 		);
 	}
